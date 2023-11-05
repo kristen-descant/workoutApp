@@ -14,6 +14,9 @@
     "categories": {
       "auth": {
         "workoutapp858a4950": {}
+      },
+      "api": {
+        "workoutappAPI": {}
       }
     }
   }

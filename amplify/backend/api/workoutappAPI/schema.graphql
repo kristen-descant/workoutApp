@@ -1,0 +1,27 @@
+
+type User @model {
+  id: ID!
+  username: String!
+  email: String!
+}
+
+type Workout @model {
+  id: ID!
+  title: String!
+  date: String!
+  userID: ID!
+}
+
+type Exercise @model {
+  id: ID!
+  name: String!
+  workoutID: ID!
+}
+
+type Set @model {
+  id: ID!
+  weight: Float!
+  repetitions: Int!
+  exerciseID: ID!
+}
+
