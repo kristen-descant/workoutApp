@@ -1,24 +1,32 @@
 
-type User @model {
+type User @model
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "id" }
+      { allow: public, operations: [read] }
+    ]
+  ) {
   id: ID!
-  username: String!
   email: String!
 }
 
-type Workout @model {
+type Workout @model 
+  @auth(rules: [{ allow: owner, ownerField: "userID" }]) {
   id: ID!
   title: String!
   date: String!
   userID: ID!
 }
 
-type Exercise @model {
+type Exercise @model
+  @auth(rules: [{ allow: owner, ownerField: "workoutID" }]) {
   id: ID!
   name: String!
   workoutID: ID!
 }
 
-type Set @model {
+type Set @model
+  @auth(rules: [{ allow: owner, ownerField: "exerciseID" }]) {
   id: ID!
   weight: Float!
   repetitions: Int!

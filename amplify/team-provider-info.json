@@ -13,10 +13,18 @@
     },
     "categories": {
       "auth": {
-        "workoutapp858a4950": {}
+        "workoutapp858a4950": {},
+        "userPoolGroups": {}
       },
       "api": {
         "workoutappAPI": {}
+      },
+      "function": {
+        "workoutapp858a4950CustomMessage": {
+          "REDIRECTURL": "",
+          "EMAILSUBJECT": "Account Confirmation",
+          "EMAILMESSAGE": "Follow the link to verify your account"
+        }
       }
     }
   }

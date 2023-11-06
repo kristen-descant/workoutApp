@@ -1,45 +1,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-    onCreateUser(filter: $filter) {
-      id
-      username
-      email
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-    onUpdateUser(filter: $filter) {
-      id
-      username
-      email
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-    onDeleteUser(filter: $filter) {
-      id
-      username
-      email
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const onCreateWorkout = /* GraphQL */ `
-  subscription OnCreateWorkout($filter: ModelSubscriptionWorkoutFilterInput) {
-    onCreateWorkout(filter: $filter) {
+  subscription OnCreateWorkout(
+    $filter: ModelSubscriptionWorkoutFilterInput
+    $userID: String
+  ) {
+    onCreateWorkout(filter: $filter, userID: $userID) {
       id
       title
       date
@@ -51,8 +18,11 @@ export const onCreateWorkout = /* GraphQL */ `
   }
 `;
 export const onUpdateWorkout = /* GraphQL */ `
-  subscription OnUpdateWorkout($filter: ModelSubscriptionWorkoutFilterInput) {
-    onUpdateWorkout(filter: $filter) {
+  subscription OnUpdateWorkout(
+    $filter: ModelSubscriptionWorkoutFilterInput
+    $userID: String
+  ) {
+    onUpdateWorkout(filter: $filter, userID: $userID) {
       id
       title
       date
@@ -64,8 +34,11 @@ export const onUpdateWorkout = /* GraphQL */ `
   }
 `;
 export const onDeleteWorkout = /* GraphQL */ `
-  subscription OnDeleteWorkout($filter: ModelSubscriptionWorkoutFilterInput) {
-    onDeleteWorkout(filter: $filter) {
+  subscription OnDeleteWorkout(
+    $filter: ModelSubscriptionWorkoutFilterInput
+    $userID: String
+  ) {
+    onDeleteWorkout(filter: $filter, userID: $userID) {
       id
       title
       date
@@ -77,8 +50,11 @@ export const onDeleteWorkout = /* GraphQL */ `
   }
 `;
 export const onCreateExercise = /* GraphQL */ `
-  subscription OnCreateExercise($filter: ModelSubscriptionExerciseFilterInput) {
-    onCreateExercise(filter: $filter) {
+  subscription OnCreateExercise(
+    $filter: ModelSubscriptionExerciseFilterInput
+    $workoutID: String
+  ) {
+    onCreateExercise(filter: $filter, workoutID: $workoutID) {
       id
       name
       workoutID
@@ -89,8 +65,11 @@ export const onCreateExercise = /* GraphQL */ `
   }
 `;
 export const onUpdateExercise = /* GraphQL */ `
-  subscription OnUpdateExercise($filter: ModelSubscriptionExerciseFilterInput) {
-    onUpdateExercise(filter: $filter) {
+  subscription OnUpdateExercise(
+    $filter: ModelSubscriptionExerciseFilterInput
+    $workoutID: String
+  ) {
+    onUpdateExercise(filter: $filter, workoutID: $workoutID) {
       id
       name
       workoutID
@@ -101,8 +80,11 @@ export const onUpdateExercise = /* GraphQL */ `
   }
 `;
 export const onDeleteExercise = /* GraphQL */ `
-  subscription OnDeleteExercise($filter: ModelSubscriptionExerciseFilterInput) {
-    onDeleteExercise(filter: $filter) {
+  subscription OnDeleteExercise(
+    $filter: ModelSubscriptionExerciseFilterInput
+    $workoutID: String
+  ) {
+    onDeleteExercise(filter: $filter, workoutID: $workoutID) {
       id
       name
       workoutID
@@ -113,8 +95,11 @@ export const onDeleteExercise = /* GraphQL */ `
   }
 `;
 export const onCreateSet = /* GraphQL */ `
-  subscription OnCreateSet($filter: ModelSubscriptionSetFilterInput) {
-    onCreateSet(filter: $filter) {
+  subscription OnCreateSet(
+    $filter: ModelSubscriptionSetFilterInput
+    $exerciseID: String
+  ) {
+    onCreateSet(filter: $filter, exerciseID: $exerciseID) {
       id
       weight
       repetitions
@@ -126,8 +111,11 @@ export const onCreateSet = /* GraphQL */ `
   }
 `;
 export const onUpdateSet = /* GraphQL */ `
-  subscription OnUpdateSet($filter: ModelSubscriptionSetFilterInput) {
-    onUpdateSet(filter: $filter) {
+  subscription OnUpdateSet(
+    $filter: ModelSubscriptionSetFilterInput
+    $exerciseID: String
+  ) {
+    onUpdateSet(filter: $filter, exerciseID: $exerciseID) {
       id
       weight
       repetitions
@@ -139,12 +127,57 @@ export const onUpdateSet = /* GraphQL */ `
   }
 `;
 export const onDeleteSet = /* GraphQL */ `
-  subscription OnDeleteSet($filter: ModelSubscriptionSetFilterInput) {
-    onDeleteSet(filter: $filter) {
+  subscription OnDeleteSet(
+    $filter: ModelSubscriptionSetFilterInput
+    $exerciseID: String
+  ) {
+    onDeleteSet(filter: $filter, exerciseID: $exerciseID) {
       id
       weight
       repetitions
       exerciseID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $id: String
+  ) {
+    onCreateUser(filter: $filter, id: $id) {
+      id
+      email
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $id: String
+  ) {
+    onUpdateUser(filter: $filter, id: $id) {
+      id
+      email
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $id: String
+  ) {
+    onDeleteUser(filter: $filter, id: $id) {
+      id
+      email
       createdAt
       updatedAt
       __typename

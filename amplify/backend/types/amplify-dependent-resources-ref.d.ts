@@ -2,7 +2,8 @@ export type AmplifyDependentResourcesAttributes = {
   "api": {
     "workoutappAPI": {
       "GraphQLAPIEndpointOutput": "string",
-      "GraphQLAPIIdOutput": "string"
+      "GraphQLAPIIdOutput": "string",
+      "GraphQLAPIKeyOutput": "string"
     }
   },
   "auth": {

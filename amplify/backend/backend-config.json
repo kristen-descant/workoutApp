@@ -12,7 +12,16 @@
       ],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2023-12-06T13:28:16.736Z",
+                "apiKeyExpirationDays": 30,
+                "description": "tempDevelopement"
+              },
+              "authenticationType": "API_KEY"
+            }
+          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
@@ -51,6 +60,32 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_workoutapp858a4950CustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "workoutapp858a4950CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_workoutapp858a4950CustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "workoutapp858a4950CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_workoutapp858a4950CustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "workoutapp858a4950CustomMessage"
+        }
+      ]
     }
   }
 }
