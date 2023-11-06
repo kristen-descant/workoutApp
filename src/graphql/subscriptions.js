@@ -52,12 +52,13 @@ export const onDeleteWorkout = /* GraphQL */ `
 export const onCreateExercise = /* GraphQL */ `
   subscription OnCreateExercise(
     $filter: ModelSubscriptionExerciseFilterInput
-    $workoutID: String
+    $userID: String
   ) {
-    onCreateExercise(filter: $filter, workoutID: $workoutID) {
+    onCreateExercise(filter: $filter, userID: $userID) {
       id
       name
       workoutID
+      userID
       createdAt
       updatedAt
       __typename
@@ -67,12 +68,13 @@ export const onCreateExercise = /* GraphQL */ `
 export const onUpdateExercise = /* GraphQL */ `
   subscription OnUpdateExercise(
     $filter: ModelSubscriptionExerciseFilterInput
-    $workoutID: String
+    $userID: String
   ) {
-    onUpdateExercise(filter: $filter, workoutID: $workoutID) {
+    onUpdateExercise(filter: $filter, userID: $userID) {
       id
       name
       workoutID
+      userID
       createdAt
       updatedAt
       __typename
@@ -82,12 +84,13 @@ export const onUpdateExercise = /* GraphQL */ `
 export const onDeleteExercise = /* GraphQL */ `
   subscription OnDeleteExercise(
     $filter: ModelSubscriptionExerciseFilterInput
-    $workoutID: String
+    $userID: String
   ) {
-    onDeleteExercise(filter: $filter, workoutID: $workoutID) {
+    onDeleteExercise(filter: $filter, userID: $userID) {
       id
       name
       workoutID
+      userID
       createdAt
       updatedAt
       __typename
@@ -97,13 +100,14 @@ export const onDeleteExercise = /* GraphQL */ `
 export const onCreateSet = /* GraphQL */ `
   subscription OnCreateSet(
     $filter: ModelSubscriptionSetFilterInput
-    $exerciseID: String
+    $userID: String
   ) {
-    onCreateSet(filter: $filter, exerciseID: $exerciseID) {
+    onCreateSet(filter: $filter, userID: $userID) {
       id
       weight
       repetitions
       exerciseID
+      userID
       createdAt
       updatedAt
       __typename
@@ -113,13 +117,14 @@ export const onCreateSet = /* GraphQL */ `
 export const onUpdateSet = /* GraphQL */ `
   subscription OnUpdateSet(
     $filter: ModelSubscriptionSetFilterInput
-    $exerciseID: String
+    $userID: String
   ) {
-    onUpdateSet(filter: $filter, exerciseID: $exerciseID) {
+    onUpdateSet(filter: $filter, userID: $userID) {
       id
       weight
       repetitions
       exerciseID
+      userID
       createdAt
       updatedAt
       __typename
@@ -129,13 +134,14 @@ export const onUpdateSet = /* GraphQL */ `
 export const onDeleteSet = /* GraphQL */ `
   subscription OnDeleteSet(
     $filter: ModelSubscriptionSetFilterInput
-    $exerciseID: String
+    $userID: String
   ) {
-    onDeleteSet(filter: $filter, exerciseID: $exerciseID) {
+    onDeleteSet(filter: $filter, userID: $userID) {
       id
       weight
       repetitions
       exerciseID
+      userID
       createdAt
       updatedAt
       __typename

@@ -41,6 +41,7 @@ export const getExercise = /* GraphQL */ `
       id
       name
       workoutID
+      userID
       createdAt
       updatedAt
       __typename
@@ -58,6 +59,7 @@ export const listExercises = /* GraphQL */ `
         id
         name
         workoutID
+        userID
         createdAt
         updatedAt
         __typename
@@ -74,6 +76,7 @@ export const getSet = /* GraphQL */ `
       weight
       repetitions
       exerciseID
+      userID
       createdAt
       updatedAt
       __typename
@@ -92,6 +95,7 @@ export const listSets = /* GraphQL */ `
         weight
         repetitions
         exerciseID
+        userID
         createdAt
         updatedAt
         __typename

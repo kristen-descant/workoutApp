@@ -19,17 +19,19 @@ type Workout @model
 }
 
 type Exercise @model
-  @auth(rules: [{ allow: owner, ownerField: "workoutID" }]) {
+  @auth(rules: [{ allow: owner, ownerField: "userID" }]) {
   id: ID!
   name: String!
   workoutID: ID!
+  userID: ID!
 }
 
 type Set @model
-  @auth(rules: [{ allow: owner, ownerField: "exerciseID" }]) {
+  @auth(rules: [{ allow: owner, ownerField: "userID" }]) {
   id: ID!
   weight: Float!
   repetitions: Int!
   exerciseID: ID!
+  userID: ID!
 }
 

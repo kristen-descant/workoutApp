@@ -39,6 +39,12 @@
   width: 45vw;
 }
 
+.exerciseList {
+  list-style: none;
+  text-align: left;
+  padding: 0;
+}
+
 .workoutList li:hover {
   background-color: cadetblue;
 }

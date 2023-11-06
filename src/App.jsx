@@ -8,6 +8,7 @@ import { checkUserExistence, createUserFunction } from './mutations/userMutation
 import { fetchWorkouts } from './queries/workoutQueries';
 import { createWorkoutFunction } from './mutations/workoutMutations';
 import { fetchExercises } from './queries/exerciseQueries';
+import { createExerciseFunction } from './mutations/exerciseMutations';
 
 Amplify.configure(awsExports);
 
@@ -18,10 +19,12 @@ function App({ signOut, user }) {
   const [userExist, setUserExist] = useState();
   const [workouts, setWorkouts] = useState([]);
   const [activeWorkout, setActiveWorkout] = useState();
+  const [activeWorkoutTitle, setActiveWorkoutTitle] = useState();
   const [workoutCreation, setWorkoutCreation] = useState(false);
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
   const [exercises, setExercises] = useState([]);
+  const [exerciseName, setExerciseName] = useState();
 
   useEffect(() => {
 
@@ -72,8 +75,9 @@ function App({ signOut, user }) {
     }
   }
 
-  const handleWorkoutClick = (id) => {
+  const handleWorkoutClick = (id, title) => {
     setActiveWorkout(id);
+    setActiveWorkoutTitle(title);
   }
 
   useEffect(() => {
@@ -81,6 +85,19 @@ function App({ signOut, user }) {
       fetchExercises(activeWorkout, setExercises);
     }
   }, [activeWorkout]);
+
+  const handleAddExercise = () => {
+    if (exerciseName) {
+      const exerciseInput = {
+        name: exerciseName,
+        workoutID: activeWorkout,
+        userID: userID
+      };
+      createExerciseFunction(exerciseInput);
+      // Clear form field
+      setExerciseName('');
+    }
+  }
 
   return (
     <div className="App">
@@ -115,7 +132,7 @@ function App({ signOut, user }) {
                 {workouts.map((workout) => (
                   <li 
                     key={workout.id}
-                    onClick={() => handleWorkoutClick(workout.id)}>
+                    onClick={() => handleWorkoutClick(workout.id, workout.title)}>
                     <p>{workout.date} - {workout.title}</p>
                   </li>
                 ))}
@@ -127,7 +144,32 @@ function App({ signOut, user }) {
         {
           activeWorkout && (
             <div>
-              <button onClick={() => setActiveWorkout(null)}>Back to workouts</button>
+              <button onClick={() => 
+                {setActiveWorkout(null)
+                setExercises(null)}}>Back to workouts</button>
+              <h2>{activeWorkoutTitle}</h2>
+              <h3>Exercises:</h3>
+              <div>
+                <input
+                    type="text"
+                    placeholder="Name"
+                    value={exerciseName}
+                    onChange={(e) => setExerciseName(e.target.value)}
+                  />
+                <button onClick={handleAddExercise}>Add</button>
+              </div>
+              {exercises && (
+                <ul className='exerciseList'>
+                {exercises
+                  .filter((exercise) => exercise.workoutID === activeWorkout)
+                  .map((exercise) => (
+                    <li key={exercise.id}>
+                      {exercise.name}
+                    </li>
+                  ))
+                }
+              </ul>
+              )}
             </div>
           )
         }
@@ -139,3 +181,5 @@ function App({ signOut, user }) {
 export default withAuthenticator(App);
 
 // https://p2ms52alozdeleusq3nuxzlgqi.appsync-api.us-east-1.amazonaws.com/graphql
+// GraphQL endpoint: https://p2ms52alozdeleusq3nuxzlgqi.appsync-api.us-east-1.amazonaws.com/graphql
+// GraphQL API KEY: da2-nkvvm657ljbmzdx2odfrt2cpn4
