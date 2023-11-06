@@ -32,6 +32,7 @@ type Set @model
   weight: Float!
   repetitions: Int!
   exerciseID: ID!
+  workoutID: ID!
   userID: ID!
 }
 

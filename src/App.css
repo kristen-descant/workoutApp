@@ -49,6 +49,42 @@
   background-color: cadetblue;
 }
 
+.exerciseBase {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exerciseBlock {
+  width: 45vw;
+  margin-bottom: 50px;
+}
+
+.exerciseButton {
+  height: 25px;
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.setList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.setForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.setInput {
+  width: 10%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

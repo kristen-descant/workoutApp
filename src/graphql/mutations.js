@@ -149,6 +149,7 @@ export const createSet = /* GraphQL */ `
       weight
       repetitions
       exerciseID
+      workoutID
       userID
       createdAt
       updatedAt
@@ -166,6 +167,7 @@ export const updateSet = /* GraphQL */ `
       weight
       repetitions
       exerciseID
+      workoutID
       userID
       createdAt
       updatedAt
@@ -183,6 +185,7 @@ export const deleteSet = /* GraphQL */ `
       weight
       repetitions
       exerciseID
+      workoutID
       userID
       createdAt
       updatedAt

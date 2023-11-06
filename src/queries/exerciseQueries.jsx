@@ -13,7 +13,7 @@ export const fetchExercises = async (workoutID, setExercises) => {
       const exerciseList = exerciseData.data.listExercises.items;
 
       // Sort workouts by date
-      exerciseList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      exerciseList.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
       console.log('exercise list', exerciseList);
       setExercises(exerciseList);
     } catch (error){

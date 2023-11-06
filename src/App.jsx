@@ -9,6 +9,8 @@ import { fetchWorkouts } from './queries/workoutQueries';
 import { createWorkoutFunction } from './mutations/workoutMutations';
 import { fetchExercises } from './queries/exerciseQueries';
 import { createExerciseFunction } from './mutations/exerciseMutations';
+import { fetchSets } from './queries/setsQueries';
+import { createSetFunction } from './mutations/setMutation';
 
 Amplify.configure(awsExports);
 
@@ -25,6 +27,10 @@ function App({ signOut, user }) {
   const [date, setDate] = useState('');
   const [exercises, setExercises] = useState([]);
   const [exerciseName, setExerciseName] = useState();
+  const [activeExercise, setActiveExercise] = useState(null);
+  const [sets, setSets] = useState([]);
+  const [currentWeight, setCurrentWeight] = useState(0);
+  const [currentRepetitions, setCurrentRepetitions] = useState(0);
 
   useEffect(() => {
 
@@ -83,6 +89,7 @@ function App({ signOut, user }) {
   useEffect(() => {
     if (activeWorkout) {
       fetchExercises(activeWorkout, setExercises);
+      fetchSets(activeWorkout, setSets)
     }
   }, [activeWorkout]);
 
@@ -96,7 +103,28 @@ function App({ signOut, user }) {
       createExerciseFunction(exerciseInput);
       // Clear form field
       setExerciseName('');
+
+      // Fetch exercises again after adding a new exercise
+      fetchExercises(activeWorkout, setExercises);
     }
+  }
+
+  const handleAddSet = (exerciseID) => {
+    if (currentWeight && currentRepetitions) {
+      const setInput = {
+        weight: +currentWeight,
+        repetitions: +currentRepetitions,
+        exerciseID: exerciseID,
+        workoutID: activeWorkout,
+        userID: userID
+      }
+      createSetFunction(setInput);
+      setActiveExercise(null);
+      fetchSets(activeWorkout, setSets);
+    } else {
+      window.alert('Enter a valid weight and reps.')
+    }
+
   }
 
   return (
@@ -163,8 +191,59 @@ function App({ signOut, user }) {
                 {exercises
                   .filter((exercise) => exercise.workoutID === activeWorkout)
                   .map((exercise) => (
-                    <li key={exercise.id}>
-                      {exercise.name}
+                    <li key={exercise.id}
+                        className='exerciseBlock'>
+                      <div className='exerciseBase'>
+                        <div>
+                          {exercise.name}
+                        </div>
+                        <div>
+                          <button className='exerciseButton'
+                                  onClick={() => setActiveExercise(exercise.id)}
+                          >+</button>
+                        </div>
+                      </div>
+                      {sets && (
+                        <ul>
+                        {sets
+                          .filter((set) => set.exerciseID === exercise.id)
+                          .map((set, index) => (
+                            <li key={set.id}
+                                className='setList'>
+                              <div>
+                                Set {index + 1}
+                              </div>
+                              <div>
+                                Reps: {set.repetitions}
+                              </div>
+                              <div>
+                                Weight: {set.weight}
+                              </div>
+                            </li>
+                          ))}
+                      </ul>
+                      )}
+                      {activeExercise === exercise.id && (
+                        <div className='setForm'>
+                          <label htmlFor="currentRepetitions">Reps</label>
+                          <input
+                            className='setInput'
+                            type="number"
+                            placeholder="Reps"
+                            value={currentRepetitions}
+                            onChange={(e) => setCurrentRepetitions(e.target.value)}
+                          />
+                          <label htmlFor="currentWeight">Weight</label>
+                          <input
+                            className='setInput'
+                            type="number"
+                            placeholder="Weight"
+                            value={currentWeight}
+                            onChange={(e) => setCurrentWeight(e.target.value)}
+                          />
+                          <button onClick={() => handleAddSet(exercise.id)}>Save</button>
+                        </div>
+                      )}
                     </li>
                   ))
                 }
