@@ -19,4 +19,4 @@ export const fetchWorkouts = async (userID, setWorkouts) => {
     } catch (error){
         console.log('error on the fetching workouts', error);
     }
-  };
+};

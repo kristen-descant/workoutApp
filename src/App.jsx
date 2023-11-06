@@ -7,6 +7,7 @@ import '@aws-amplify/ui-react/styles.css';
 import { checkUserExistence, createUserFunction } from './mutations/userMutations';
 import { fetchWorkouts } from './queries/workoutQueries';
 import { createWorkoutFunction } from './mutations/workoutMutations';
+import { fetchExercises } from './queries/exerciseQueries';
 
 Amplify.configure(awsExports);
 
@@ -20,6 +21,7 @@ function App({ signOut, user }) {
   const [workoutCreation, setWorkoutCreation] = useState(false);
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
+  const [exercises, setExercises] = useState([]);
 
   useEffect(() => {
 
@@ -74,6 +76,11 @@ function App({ signOut, user }) {
     setActiveWorkout(id);
   }
 
+  useEffect(() => {
+    if (activeWorkout) {
+      fetchExercises(activeWorkout, setExercises);
+    }
+  }, [activeWorkout]);
 
   return (
     <div className="App">
@@ -120,7 +127,7 @@ function App({ signOut, user }) {
         {
           activeWorkout && (
             <div>
-              <button onClick={setActiveWorkout(null)}>Back to workouts</button>
+              <button onClick={() => setActiveWorkout(null)}>Back to workouts</button>
             </div>
           )
         }
