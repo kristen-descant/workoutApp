@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { API, Amplify, graphqlOperation, Auth } from 'aws-amplify'
+import { Amplify, Auth } from 'aws-amplify'
 import awsExports from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -11,6 +11,7 @@ import { fetchExercises } from './queries/exerciseQueries';
 import { createExerciseFunction } from './mutations/exerciseMutations';
 import { fetchSets } from './queries/setsQueries';
 import { createSetFunction } from './mutations/setMutation';
+import { handleAddExercise, handleCreateWorkout, handleWorkoutClick, handleAddSet } from './Handlers';
 
 Amplify.configure(awsExports);
 
@@ -33,7 +34,7 @@ function App({ signOut, user }) {
   const [currentRepetitions, setCurrentRepetitions] = useState(0);
 
   useEffect(() => {
-
+    // Get data from authenticated user.
     Auth.currentAuthenticatedUser()
     .then(user => {
       // Access the user's unique identifier ("sub")
@@ -47,9 +48,11 @@ function App({ signOut, user }) {
   }, []);
 
   useEffect(() => {
+    // Check if user exist in database.
     if (userID) {
       checkUserExistence(userID, setUserExist);
     }
+    // If user does not exist, create user.
     if (userID && !userExist) {
       const input = {
         id: userID,
@@ -63,69 +66,18 @@ function App({ signOut, user }) {
   }, [userID]);
 
   useEffect(() => {
+    // Get all workouts belonging to authenticated user.
     fetchWorkouts(userID, setWorkouts);
   }, [userID, workoutCreation]);
 
-  const handleCreateWorkout = () => {
-    if (title && date) {
-      const workoutInput = {
-        title: title,
-        date: date,
-        userID: userID
-      };
-      createWorkoutFunction(workoutInput);
-      // Clear the form fields after creating a workout
-      setTitle('');
-      setDate('');
-      setWorkoutCreation(!workoutCreation);
-    }
-  }
-
-  const handleWorkoutClick = (id, title) => {
-    setActiveWorkout(id);
-    setActiveWorkoutTitle(title);
-  }
-
   useEffect(() => {
+    // If a workout is clicked fetch all exercises for that workout.
     if (activeWorkout) {
       fetchExercises(activeWorkout, setExercises);
+      // Fetch the sets belonging to each exercise.
       fetchSets(activeWorkout, setSets)
     }
   }, [activeWorkout]);
-
-  const handleAddExercise = () => {
-    if (exerciseName) {
-      const exerciseInput = {
-        name: exerciseName,
-        workoutID: activeWorkout,
-        userID: userID
-      };
-      createExerciseFunction(exerciseInput);
-      // Clear form field
-      setExerciseName('');
-
-      // Fetch exercises again after adding a new exercise
-      fetchExercises(activeWorkout, setExercises);
-    }
-  }
-
-  const handleAddSet = (exerciseID) => {
-    if (currentWeight && currentRepetitions) {
-      const setInput = {
-        weight: +currentWeight,
-        repetitions: +currentRepetitions,
-        exerciseID: exerciseID,
-        workoutID: activeWorkout,
-        userID: userID
-      }
-      createSetFunction(setInput);
-      setActiveExercise(null);
-      fetchSets(activeWorkout, setSets);
-    } else {
-      window.alert('Enter a valid weight and reps.')
-    }
-
-  }
 
   return (
     <div className="App">
@@ -151,7 +103,10 @@ function App({ signOut, user }) {
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                   />
-                <button onClick={handleCreateWorkout}>Create Workout</button>
+                <button 
+                  onClick={() => handleCreateWorkout(userID, title, date, setTitle, 
+                    setDate, workoutCreation, setWorkoutCreation)}>
+                  Create Workout</button>
               </div>
             </div>
             <div>
@@ -160,7 +115,8 @@ function App({ signOut, user }) {
                 {workouts.map((workout) => (
                   <li 
                     key={workout.id}
-                    onClick={() => handleWorkoutClick(workout.id, workout.title)}>
+                    onClick={() => handleWorkoutClick(workout.id, workout.title, 
+                      setActiveWorkout, setActiveWorkoutTitle)}>
                     <p>{workout.date} - {workout.title}</p>
                   </li>
                 ))}
@@ -184,7 +140,8 @@ function App({ signOut, user }) {
                     value={exerciseName}
                     onChange={(e) => setExerciseName(e.target.value)}
                   />
-                <button onClick={handleAddExercise}>Add</button>
+                <button onClick={() => handleAddExercise(exerciseName, setExerciseName, 
+                  activeWorkout, userID, setExercises)}>Add</button>
               </div>
               {exercises && (
                 <ul className='exerciseList'>
@@ -241,7 +198,8 @@ function App({ signOut, user }) {
                             value={currentWeight}
                             onChange={(e) => setCurrentWeight(e.target.value)}
                           />
-                          <button onClick={() => handleAddSet(exercise.id)}>Save</button>
+                          <button onClick={() => handleAddSet(exercise.id, currentWeight, currentRepetitions, 
+                            activeWorkout, userID, setActiveExercise, setSets)}>Save</button>
                         </div>
                       )}
                     </li>
