@@ -30,15 +30,15 @@ export const deleteWorkoutFunction = async (workoutID) => {
   }
 };
 
-export const updateWorkoutfunction = async (input) => {
-  try {
+// export const updateWorkoutfunction = async (input) => {
+//   try {
 
-    const response = await API.graphql(
-      graphqlOperation(updateWorkout, {input: input})
-    );
+//     const response = await API.graphql(
+//       graphqlOperation(updateWorkout, {input: input})
+//     );
     
-    console.log('Workout updated.')
-  } catch (error){
-      console.log('error on deleting workout', error);
-  }
-}
+//     console.log('Workout updated.')
+//   } catch (error){
+//       console.log('error on deleting workout', error);
+//   }
+// }

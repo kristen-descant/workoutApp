@@ -52,6 +52,7 @@
 .exerciseBase {
   display: flex;
   flex-direction: row;
+  position: relative;
   justify-content: space-between;
   align-items: center;
 }
@@ -63,7 +64,8 @@
 
 .exerciseButton {
   height: 25px;
-  width: 25px;
+  width: 40px;
+  font-size: x-small;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,6 +101,13 @@
 .trashIcon {
   position: absolute;
   right: 5px;
+  top: 5px;
+  margin: 5px;
+}
+
+.trashIconExercise {
+  position: absolute;
+  right: 50px;
   top: 5px;
   margin: 5px;
 }

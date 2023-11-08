@@ -10,7 +10,8 @@ import { fetchWorkouts } from './queries/workoutQueries';
 import { fetchExercises } from './queries/exerciseQueries';
 import { fetchSets } from './queries/setsQueries';
 import { handleAddExercise, handleCreateWorkout, handleWorkoutClick, handleAddSet, 
-        handleDeleteWorkout } from './Handlers';
+        handleDeleteWorkout, 
+        handleDeleteExercise} from './Handlers';
 
 Amplify.configure(awsExports);
 
@@ -163,8 +164,11 @@ function App({ signOut, user }) {
                         <div>
                           <button className='exerciseButton'
                                   onClick={() => setActiveExercise(exercise.id)}
-                          >+</button>
+                          >Set +</button>
                         </div>
+                        <FaRegTrashCan 
+                          className='trashIconExercise'
+                          onClick={(event) => handleDeleteExercise(event, exercise.id, activeWorkout, setExercises)}/>
                       </div>
                       {sets && (
                         <ul>
