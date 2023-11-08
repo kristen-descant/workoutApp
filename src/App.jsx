@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaPencil, FaRegTrashCan } from "react-icons/fa6";
 import './App.css';
 import { Amplify, Auth } from 'aws-amplify'
 import awsExports from './aws-exports';
@@ -6,12 +7,10 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { checkUserExistence, createUserFunction } from './mutations/userMutations';
 import { fetchWorkouts } from './queries/workoutQueries';
-import { createWorkoutFunction } from './mutations/workoutMutations';
 import { fetchExercises } from './queries/exerciseQueries';
-import { createExerciseFunction } from './mutations/exerciseMutations';
 import { fetchSets } from './queries/setsQueries';
-import { createSetFunction } from './mutations/setMutation';
-import { handleAddExercise, handleCreateWorkout, handleWorkoutClick, handleAddSet } from './Handlers';
+import { handleAddExercise, handleCreateWorkout, handleWorkoutClick, handleAddSet, 
+        handleDeleteWorkout } from './Handlers';
 
 Amplify.configure(awsExports);
 
@@ -114,10 +113,17 @@ function App({ signOut, user }) {
               <ul className='workoutList'>
                 {workouts.map((workout) => (
                   <li 
+                    className='workoutLI'
                     key={workout.id}
                     onClick={() => handleWorkoutClick(workout.id, workout.title, 
                       setActiveWorkout, setActiveWorkoutTitle)}>
                     <p>{workout.date} - {workout.title}</p>
+                    {/* <FaPencil 
+                    className='pencilIcon'
+                    onClick={() => handleEditWorkout(workout.id)}/> */}
+                    <FaRegTrashCan 
+                    className='trashIcon'
+                    onClick={(event) => handleDeleteWorkout(event, workout.id, workoutCreation, setWorkoutCreation)}/>
                   </li>
                 ))}
               </ul>

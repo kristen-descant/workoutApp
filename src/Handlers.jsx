@@ -1,4 +1,4 @@
-import { createWorkoutFunction} from "./mutations/workoutMutations";
+import { createWorkoutFunction, deleteWorkoutFunction, updateWorkoutfunction } from "./mutations/workoutMutations";
 import { createExerciseFunction } from "./mutations/exerciseMutations";
 import { createSetFunction } from "./mutations/setMutation";
 import { fetchExercises } from "./queries/exerciseQueries";
@@ -64,3 +64,9 @@ export const handleAddSet = (exerciseID, currentWeight, currentRepetitions, acti
       window.alert('Enter a valid weight and reps.')
     }
 }
+
+export const handleDeleteWorkout = (event, workoutID, workoutCreation, setWorkoutCreation) => {
+    event.stopPropagation();
+    deleteWorkoutFunction(workoutID);
+    setWorkoutCreation(!workoutCreation);
+};
